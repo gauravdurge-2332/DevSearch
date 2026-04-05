@@ -68,14 +68,13 @@ def registerpage(request):
             
             # Send Welcome Email
             try:
-                
                 send_mail(
                     "Welcome to Devsearch",
                     "Devsearch is a platform where developers meet and grow together. "
                     "We hope you enjoy being here and stay motivated to build for society.",
                     settings.EMAIL_HOST_USER,
                     [user.email],
-                    fail_silently=False,
+                    fail_silently=True,
                 )
             except Exception as e:
                 print("EMAIL ERROR:", e)
@@ -128,7 +127,15 @@ def useraccount(request):
 
 @login_required(login_url="login-page")
 def editprofile(request):
-    profile = request.user.userprofile
+    # Use get_or_create to handle cases where signal may not have created the profile
+    profile, created = Userprofile.objects.get_or_create(
+        user=request.user,
+        defaults={
+            'username': request.user.username,
+            'email': request.user.email,
+            'name': request.user.first_name,
+        }
+    )
     form = ProfileForm(instance=profile)
     context = {"form": form}
     if request.method == "POST":
