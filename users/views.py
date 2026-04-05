@@ -66,19 +66,6 @@ def registerpage(request):
             user = form.save(commit=False)
             user.save()
             
-            # Send Welcome Email
-            try:
-                send_mail(
-                    "Welcome to Devsearch",
-                    "Devsearch is a platform where developers meet and grow together. "
-                    "We hope you enjoy being here and stay motivated to build for society.",
-                    settings.EMAIL_HOST_USER,
-                    [user.email],
-                    fail_silently=True,
-                )
-            except Exception as e:
-                print("EMAIL ERROR:", e)
-
             messages.success(request, "User Account Created Successfully!")
 
             login(request, user)
