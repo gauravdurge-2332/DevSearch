@@ -38,7 +38,9 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", "True") == "True"
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", "devsearch-gaurav.onrender.com"]
+# This will allow any URL that ends in .onrender.com
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", ".onrender.com"]
+
 
 
 # Application definition
