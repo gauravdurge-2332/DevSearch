@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ profile.user.username }} - Projects</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .project-card {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .project-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .project-description {
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .project-meta {
+            font-size: 14px;
+            color: #888;
+        }
+
+        .no-projects {
+            text-align: center;
+            color: #777;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="profile-header">
+        <h1>{{ profile.username }}'s Projects</h1>
+        <p>{{ profile.location }}</p>
+    </div>
+
+    {% if all_projects %}
+        {% for project in all_projects %}
+            <div class="project-card">
+                <div class="project-title">
+                    {{ project.title }}
+                </div>
+
+                <div class="project-description">
+                    {{ project.description }}
+                </div>
+
+                <div class="project-meta">
+
+                    Posted on: {{ project.created|date:"M d, Y" }}
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="no-projects">
+            This user has not posted any projects yet.
+        </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>
+>

@@ -1,0 +1,20 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Virtual environment
+venv/
+
+# Python cache folders
+**/__pycache__/
+
+*.pyc
+
+# IDE/editor folders
+.vscode/
+.idea/
+
+# Database file (if using SQLite)
+db.sqlite3
+
+# Environment variables
+.env

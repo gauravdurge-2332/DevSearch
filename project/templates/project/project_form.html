@@ -1,0 +1,56 @@
+{% extends 'main.html'  %}
+{% block content%}
+
+
+
+<!-- Main Section -->
+    <main class="formPage my-xl">
+        <div class="content-box">
+            <div class="formWrapper">
+                <a class="backButton" href="{% url 'account' %}"><i class="fa-solid fa-chevron-left"></i></a>
+                <br>
+
+<form class="form" 
+      action="{% if project %}{% url 'update_project' project.id %}{% else %}{% url 'create_project' %}{% endif %}" 
+      method="POST" 
+      enctype="multipart/form-data">
+    
+    {% csrf_token %}
+    {{ form.errors }}
+
+    {% for field in form %}
+        <div class="form__field">
+            <label>{{ field.label }}</label>
+            {{ field }}
+        </div>
+    {% endfor %}
+
+    {% if project %}
+    <div class="form__field">
+        <label>Current Tags (Click on an 'X' to remove it)</label>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 10px;">
+            {% for tag in project.tags.all %}
+                <a href="?delete_tag={{tag.id}}" class="project-tag tag tag--pill tag--main" style="text-decoration: none; display: inline-block;">
+                    {{tag.name}} <strong style="margin-left: 5px; font-size: 16px;">&#215;</strong>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="form__field">
+        <label>New Tags</label>
+        <textarea class="input" name="newtags" placeholder="Add your new TechStack here, separated by spaces..."></textarea>
+    </div>
+
+    <input class="btn btn--sub btn--lg my-md" type="submit" value="{% if project %}Update{% else %}Add{% endif %}" />
+</form>
+
+
+            </div>
+        </div>
+    </main>
+
+
+
+{% endblock content%}

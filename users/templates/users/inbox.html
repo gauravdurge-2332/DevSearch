@@ -1,0 +1,42 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<main class="inbox my-xl">
+  <div class="content-box">
+    <h3 class="inbox__title">
+      New Messages (<span>{{ count }}</span>)
+    </h3>
+
+    <ul class="messages">
+      {% for message in message %}
+
+      {% if not message.is_read %}
+      <li class="message" style="font-weight: bold;">
+      {% else %}
+      <li class="message" style="font-weight: normal; color: gray;">
+      {% endif %}
+
+      <div>
+          <strong>Name:</strong> {{ message.name }}
+        </div>
+          <a href="{% url 'message' message.id %}">
+        
+
+        <div>
+          <strong>Subject:</strong> {{ message.subject }}
+        </div>
+
+        
+          </a>
+          <div>
+
+          <strong>Date:</strong> {{ message.created }}
+        </div>
+
+      </li>
+
+      {% endfor %}
+    </ul>
+  </div>
+</main>
+{% endblock content %}
